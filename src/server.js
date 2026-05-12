@@ -173,6 +173,16 @@ const server = http.createServer(async (req, res) => {
     return res.end('OK');
   }
 
+  if (req.method === 'GET' && pathname === '/debug') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({
+      CODA_API_TOKEN: process.env.CODA_API_TOKEN ? 'SET' : 'NOT SET',
+      CODA_DOC_ID: process.env.CODA_DOC_ID || 'NOT SET',
+      CODA_TABLE_ID: process.env.CODA_TABLE_ID || 'NOT SET',
+      PRODUCTION: process.env.PRODUCTION || 'NOT SET',
+    }));
+  }
+
   if (req.method === 'POST' && pathname === '/nova-tarefa') {
     const body = await parseBody(req);
 
