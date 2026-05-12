@@ -6,7 +6,7 @@ const PROXY_HOST = '127.0.0.1';
 const PROXY_PORT = 1090;
 
 function isLocal() {
-  return !process.env.RENDER && !process.env.HEROKU && !process.env.VERCEL && !process.env.PRODUCTION;
+  return process.env.PRODUCTION !== 'true';
 }
 
 function directRequest(method, apiPath, payload) {
